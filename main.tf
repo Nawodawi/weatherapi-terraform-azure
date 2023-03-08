@@ -16,15 +16,15 @@ backend "azurerm" {
 }
 
 
-
-provider "azurerm" {
-  features {}
-}
-
 variable "imagebuild" {
   type = string
   description = "Latest Image build"
   
+}
+
+
+provider "azurerm" {
+  features {}
 }
 
 resource "azurerm_resource_group" "cool-rg" {
@@ -42,7 +42,7 @@ resource "azurerm_container_group" "container-group" {
 
   container {
     name   = "weatherapi"
-    image  = "nawoda/weatherapi: ${var.imagebuild}"
+    image  = "nawoda/weatherapi:${var.imagebuild}"
     cpu    = "0.5"
     memory = "1"
 
