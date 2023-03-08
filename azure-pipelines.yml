@@ -44,8 +44,8 @@ stages:
 
           terrafoam init -input=false
           terraform apply -input=false -auto-approve
-        name: "Run_Terraform"
-        displayName: "Run Terrafoam"
+        name: 'Run_Terraform'
+        displayName: 'Run Terrafoam'
         env:
           ARM_CLIENT_ID: $(ARM_CLIENT_ID)
           ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
