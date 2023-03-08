@@ -28,5 +28,27 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
+- stage: Provision
+  displayName: "Terraforming on azure"
+  dependsOn: Build
+  jobs:
+    - job: provision
+      displayName: "Provisioning container instance"
+      pool: 
+        vmImage: ubuntu-latest
+      variables: 
+      - group: TF-service-principle_vars
+      steps:
+      - script: |
+          set -e
 
+          terrafoam init -input=false
+          terraform apply -input=false -auto-approve
+        name: "Run_Terraform"
+        displayName: "Run Terrafoam"
+        env:
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
     
